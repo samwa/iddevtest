@@ -15,4 +15,10 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
   </ItemGroup>
 
+  <!-- ng build in pipeline
+  <Target Name="Build Angular" Condition="'$(Configuration)'=='Release'" BeforeTargets="Build">
+    <Message Text="* * * * * Building Angular App" Importance="High" />
+    <Exec Command="ng build -prod -aot" />
+  </Target>
+  -->
 </Project>
