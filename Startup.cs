@@ -54,6 +54,7 @@ namespace iddevtest
                     await next();
                 }
             });
+            
             app.UseMvcWithDefaultRoute();
             app.UseDefaultFiles();
             app.UseStaticFiles();
