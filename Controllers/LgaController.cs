@@ -13,7 +13,7 @@ namespace iddevtest.Controllers
     [ApiController]
     public class LgaController : ControllerBase
     {
-        // GET api/values
+        // GET api/lga
         [HttpGet]
         public ActionResult<IEnumerable<LgaModel>> Get(string state)
         {
