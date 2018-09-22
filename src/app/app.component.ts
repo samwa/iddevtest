@@ -11,11 +11,11 @@ export class AppComponent implements OnInit {
   constructor(private _httpService: Http) { }
 
   title = 'id-dev-test';
-  apiValues: string[] = [];
+  lgas: string[] = [];
 
   ngOnInit() {
-    this._httpService.get('/api/values').subscribe(values => {
-        this.apiValues = values.json() as string[];
+    this._httpService.get('/api/lga').subscribe(values => {
+        this.lgas = values.json() as string[];
     });
    }
 }
