@@ -3,7 +3,6 @@
 <h1>
   Welcome to {{ title }}!
 </h1>
-<h1>Application says what?!</h1>
 
 <select (change)="onChange($event.target.value)">
   <option *ngFor="let state of states" value="{{state.short}}">{{state.long}}</option>
