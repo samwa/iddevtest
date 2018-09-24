@@ -21,9 +21,8 @@ namespace iddevtest
         public LgaContext(DbContextOptions<LgaContext> options)
             :base(options)
         {
-            
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Server=.\SQL2012;Database=sdb-iddevtest;Trusted_Connection=True;");

@@ -27,19 +27,54 @@ namespace iddevtest.Controllers
 
         // GET api/lga
         [HttpGet]
-        public ActionResult<IEnumerable<LgaModel>> Get(string state)
+        public ActionResult<IEnumerable<LgaViewModel>> Get(string state)
         {
+            // convert state the enum
             States statesEnum;
             Enum.TryParse(state?.ToUpper(), out statesEnum);
 
+            IEnumerable<LgaViewModel> lgas = new List<LgaViewModel>();
+
+            // get all LGAs
+            // calculate the difference in SEIFA scores and create viewmodel
+            lgas = (from l in Lgas
+                where l.SEIFADisadvantage2016 != null && l.SEIFADisadvantage2011 != null
+                select new LgaViewModel 
+                    { 
+                        Place = l.Place, 
+                        State = l.State, 
+                        SEIFADisadvantage2011 = l.SEIFADisadvantage2011, 
+                        SEIFADisadvantage2016 = l.SEIFADisadvantage2016, 
+                        Difference = l.SEIFADisadvantage2016-l.SEIFADisadvantage2011 } 
+                );
+
+            // filter on state 
             if (!statesEnum.Equals(States.None))
-            {
-                Lgas = (from l in Lgas
+            {                
+                lgas = (from l in lgas
                     where l.State.Equals(statesEnum.GetDescription())
-                    select l).ToList();
+                    select l);
+
             }
-            return Lgas;
+
+            // display only those in the top half of the SEIFA increase range
+            lgas = (from l in lgas
+                orderby l.Difference
+                select l);
+            int halfCount = lgas.ToList().Count/2;
+            lgas = lgas.Skip(halfCount);
+            
+            return lgas.ToList();
         }
+    }
+
+    public class LgaViewModel
+    {
+        public string Place { get; set; }
+        public string State { get; set; }
+        public int? SEIFADisadvantage2011 { get; set; }
+        public int? SEIFADisadvantage2016 { get; set; }
+        public int? Difference { get; set; }
     }
         
     public enum States

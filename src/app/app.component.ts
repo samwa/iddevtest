@@ -25,15 +25,30 @@ export class AppComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this._httpService.get('/api/lga').subscribe(response => {
+    this._httpService.get('/api/lga?state=vic').subscribe(response => {
+        var lgas = response.json() as string[];
+        var median = lgas;
         this.lgas = response.json() as string[];
     });
    }
 
   onChange(stateValue) {
-    console.log(stateValue);
+    
     this._httpService.get('/api/lga?state='+stateValue).subscribe(response => {
+
         this.lgas = response.json() as string[];
     });
+  }
+
+  median(values) {
+
+    values.sort( function(a,b) {return a - b;} );
+
+    var half = Math.floor(values.length/2);
+
+    if(values.length % 2)
+        return values[half];
+    else
+        return (values[half-1] + values[half]) / 2.0;
   }
 }

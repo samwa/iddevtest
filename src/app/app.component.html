@@ -9,5 +9,5 @@
   <option *ngFor="let state of states" value="{{state.short}}">{{state.long}}</option>
 </select>
 <ul>
-   <li *ngFor="let value of lgas">{{value.place}}, {{value.state}}</li>
+   <li *ngFor="let value of lgas">{{value.place}}, {{value.state}} - SEIFA 2011: {{value.seifaDisadvantage2011}}, SEIFA 2016 {{value.seifaDisadvantage2016}}, Difference {{value.difference}}</li>
 </ul>
